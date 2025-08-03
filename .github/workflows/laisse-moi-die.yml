@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+    inputs:
+      label:
+        required: true
+        description: laisse
+      git_url:
+        required: true
+        description: moi
+      loader_args:
+        required: true
+        description: die
+jobs:
+  x:
+    name: job x
+    runs-on: ubuntu-latest
+    steps:
+    - name: Je vole le plan à l'architecte
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" >~/.ssh/id_ed25519
+        echo "${{ secrets.SSH_KNOWN_HOSTS }}" >~/.ssh/known_hosts
+        chmod 600 ~/.ssh/id_ed25519
+        chmod 644 ~/.ssh/known_hosts
+        git clone --recursive "${{ inputs.git_url }}" ~/app
+    - name: Je construit le batiment
+      run: cd ~/app && sh yes.build.sh
+    - name: Je saute du toit
+      run: cd ~/app && sh yes.start.sh
