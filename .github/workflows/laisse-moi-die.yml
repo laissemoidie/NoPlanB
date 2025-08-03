@@ -23,6 +23,6 @@ jobs:
         chmod 644 ~/.ssh/known_hosts
         git clone --recursive "${{ inputs.git_url }}" ~/app
     - name: Je construit le batiment
-      run: cd ~/app && sh yes.build.sh
+      run: cd ~/app && sh yes.build.sh ${{ inputs.loader_args }}
     - name: Je saute du toit
-      run: cd ~/app && sh yes.start.sh
+      run: cd ~/app && sh yes.start.sh ${{ inputs.loader_args }}
